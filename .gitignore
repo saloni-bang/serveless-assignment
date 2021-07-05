@@ -1,0 +1,15 @@
+node_modules
+jspm_packages
+.serverless
+.env
+.idea
+.gradle
+logs
+*.log
+npm-debug.log*
+coverage
+.npm
+coverage
+.DS_Store
+.vscode
+.credentials.js

@@ -1,0 +1,83 @@
+service: nodejs-assignment
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-1
+  environment:
+    APP_NAME: ${self:service}
+    AWS_ACCESS_KEY_ID: id_key
+    AWS_SECRET_ACCESS_KEY: access_key
+
+package:
+  exclude:
+    - .env
+    - coverage/**
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-offline-aws-eventbridge
+
+functions:
+  function1:
+    name: function1
+    handler: src/app1/lamda-functions/loan.create
+    events:
+      - http:
+          path: /create/{amount}/{organizationId}
+          method: get
+
+  function2:
+    name: function2
+    handler: src/app1/lamda-functions/loan.remove
+    events:
+      - http:
+          path: /delete/{id}
+          method: get
+
+  function3:
+    name: function3
+    handler: src/app1/lamda-functions/loan.getAll
+    events:
+      - http:
+          path: /all
+          method: get
+
+  function4:
+    name: function4
+    handler: src/app1/lamda-functions/loan.disburse
+    events:
+      - http:
+          path: /disburse/{id}
+          method: get
+  
+  function5:
+    name: function5
+    handler: src/app2/functions.function5
+    events:
+      - eventBridge:
+          pattern:
+            source:
+              - loan-disburse-triggered
+  
+  function6:
+    name: function6
+    handler: src/app1/lamda-functions/loan.disrbuseConfirm
+    events:
+      - eventBridge:
+          pattern:
+            source:
+              - disbursed-loan-triggered
+
+custom:
+  serverless-offline-aws-eventbridge:
+    port: 4010 # port to run the eventBridge mock server on
+    mockEventBridgeServer: true # Set to false if EventBridge is already mocked by another stack
+    pubSubPort: 4011 # Port to run the MQ server (or just listen if using an EventBridge Mock server from another stack)
+    debug: false # flag to show debug messages
+    account: '' # account id that gets passed to the event
+    maximumRetryAttempts: 10 # maximumRetryAttempts to retry lambda
+    retryDelayMs: 500 # retry delay
+          
