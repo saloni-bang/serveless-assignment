@@ -1,6 +1,15 @@
-Node.js Assignment (Serverless + eventing)
+Node.js Sample project (Serverless + eventing)
 
-We are going to (re)write a simple loan application, that will be split in two apps and communicate with each other through events & commands. The main goal of this assignment is to test your skills understanding, implementing new functionality, refactoring and writing tests. The current code is full of bad practices, outdated libraries and inconsistencies, and it's your goal to make it shine and up-to-date, keeping it simple enough.
+This is a simple loan application, that will be split in two apps and communicate with each other through events & commands.
+The code focuses on
+    <ul> - coding on SOLID principles </ul>
+    <ul>- exploring AWS serverless in local environment </ul>
+    <ul>- emiting and recieving events</ul>
+    <ul>- schema  and input validation</ul>
+    <ul>- using external open source APIS</ul>
+    <ul>- using error first mechnaism in javascript</ul>
+    <ul>- using aync await</ul>
+    <ul>- using jest test cases</ul>
 
 
 Requirements
@@ -26,15 +35,16 @@ Check lint issues: yarn lint
 
 Technologies
 
-Platform: Node.js
-Programming language: Javascript (ES6) / Typescript
-Framework: Serverless.com
-Main AWS Services: Lambda, DybamoDB
+<ul>Platform: Node.js</ul>
+<ul>Programming language: Javascript (ES6) / Typescript</ul>
+<ul>Framework: Serverless.com</ul>
+<ul>Main AWS Services: Lambda, DybamoDB</ul>
 
+Flow
 
-
-app1: publishes DisburseLoan command
-app2: consume DisburseLoan command
-app2: publishes LoanDisbursed event
-app1: consume LoanDisbursed event
-app1: update status of disbursed loan to disbursed
+<ul>app1: takes and performs CRUD operations for loan</ul>
+<ul>app1: publishes DisburseLoan command</ul>
+<ul>app2: consume DisburseLoan command</ul>
+<ul>app2: publishes LoanDisbursed event</ul>
+<ul>app1: consume LoanDisbursed event</ul>
+<ul>app1: update status of disbursed loan to disbursed</ul>
